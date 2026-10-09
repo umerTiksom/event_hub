@@ -1,5 +1,13 @@
 
 class ApplicationController < ActionController::Base
+  include Pundit::Authorization
+  rescue_from Pundit::NotAuthorizedError do
+    render json:
+             {
+               status: :error,
+               message: "You are not authorized to perform this action"
+             },status: :forbidden
+  end
   private
 
   def authenticate_user!

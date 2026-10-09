@@ -4,7 +4,8 @@ class Api::V1::EventsController < ApplicationController
   before_action :set_event, only: [:show, :update, :destroy]
 
   def index
-    events = Event.includes(:category)
+    # Scope events before applying search and filters
+    events = policy_scope(Event).includes(:category)
 
     # Search by event name or description
     if params[:search].present?
@@ -22,7 +23,7 @@ class Api::V1::EventsController < ApplicationController
                      .where(categories: { name: params[:category] })
     end
 
-    #  Filter by location
+    # Filter by location
     if params[:location].present?
       location_term = "%#{Event.sanitize_sql_like(params[:location])}%"
 
@@ -50,15 +51,11 @@ class Api::V1::EventsController < ApplicationController
         previous_page: events.previous_page
       }
     }, status: :ok
-
-  rescue Date::Error, ArgumentError
-    render json: {
-      status: "error",
-      message: "Invalid date. Use YYYY-MM-DD format."
-    }, status: :unprocessable_entity
   end
 
   def show
+    authorize @event, :show?
+
     render json: {
       status: "success",
       data: @event.as_json(include: :category)
@@ -67,6 +64,9 @@ class Api::V1::EventsController < ApplicationController
 
   def create
     event = Event.new(event_params)
+    event.user = current_user
+
+    authorize event, :create?
 
     if event.save
       render json: {
@@ -83,6 +83,8 @@ class Api::V1::EventsController < ApplicationController
   end
 
   def update
+    authorize @event, :update?
+
     if @event.update(event_params)
       render json: {
         status: "success",
@@ -98,6 +100,8 @@ class Api::V1::EventsController < ApplicationController
   end
 
   def destroy
+    authorize @event, :destroy?
+
     @event.destroy
 
     render json: {
@@ -120,10 +124,11 @@ class Api::V1::EventsController < ApplicationController
   def event_params
     params.require(:event).permit(
       :name,
-      :desc,
+      :description,
       :location,
-      :start_time,
-      :category_id
+      :category_id,
+      :user_id,
+      :date
     )
   end
 end

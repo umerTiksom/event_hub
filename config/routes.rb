@@ -16,7 +16,7 @@ Rails.application.routes.draw do
           resources :registrations, only: [:create, :destroy]
         end
 
-        resources :categories, only: [:index, :show]
+        resources :categories
 
       end
     end

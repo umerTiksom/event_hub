@@ -4,10 +4,7 @@ class User < ApplicationRecord
   has_secure_password
 
   validates :email, presence: true, uniqueness: true
-  ROLES = %w[user organizer admin].freeze
-
-  validates :role, inclusion: { in: ROLES }
-
+  validates :role, inclusion: { in: %w[user organizer admin] }
   def user?
     role == "user"
   end
