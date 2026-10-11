@@ -1,5 +1,7 @@
-class EventPolicy < ApplicationPolicy
 
+# frozen_string_literal: true
+
+class EventPolicy < ApplicationPolicy
   def index?
     true
   end
@@ -13,17 +15,16 @@ class EventPolicy < ApplicationPolicy
   end
 
   def update?
-
-    return false unless user.present?
-    user.admin? || (user.role?(:organizer) || user.role?(:user))
+    user.present? &&
+      (user.role == "admin" || record.user_id == user.id)
   end
 
   def destroy?
-    update
+    update?
   end
 
   class Scope < ApplicationPolicy::Scope
-    def resolve?
+    def resolve
       scope.all
     end
   end
