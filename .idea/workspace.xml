@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e962f80-0bbf-474d-9d99-a0d705a8da2b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/spec/factories/categories.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spec/factories/events.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spec/factories/user.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spec/requests/api/v1/events_spec.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/eventHub.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/eventHub.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/policies/application_policy.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/policies/application_policy.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/policies/event_policy.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/policies/event_policy.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/database.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/requests/api/v1/events_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/requests/api/v1/events_spec.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,7 +160,7 @@
       <workItem from="1791438314127" duration="15193000" />
       <workItem from="1791524582633" duration="15243000" />
       <workItem from="1791717747727" duration="2989000" />
-      <workItem from="1791739989706" duration="3553000" />
+      <workItem from="1791739989706" duration="4608000" />
     </task>
     <servers />
   </component>
