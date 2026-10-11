@@ -99,16 +99,13 @@ class Api::V1::EventsController < ApplicationController
     end
   end
 
-  def destroy
-    authorize @event, :destroy?
+def destroy
+  authorize @event, :destroy?
 
-    @event.destroy
+  @event.destroy!
 
-    render json: {
-      status: "success",
-      message: "Event deleted successfully"
-    }, status: :ok
-  end
+  head :no_content
+end
 
   private
 

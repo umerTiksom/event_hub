@@ -11,7 +11,7 @@ RSpec.describe "API V1 Events", type: :request do
       category: category
     )
   end
-
+  # event index test case
   describe "GET /api/v1/events" do
     it "returns a successful response" do
       get "/api/v1/events"
@@ -20,7 +20,7 @@ RSpec.describe "API V1 Events", type: :request do
       expect(response.media_type).to eq("application/json")
     end
   end
-
+  # event show test case
   describe "GET /api/v1/events/:id" do
     it "returns a successful response" do
       get "/api/v1/events/#{event.id}"
@@ -34,4 +34,34 @@ RSpec.describe "API V1 Events", type: :request do
       expect(response).to have_http_status(:not_found)
     end
   end
+#   event delete test case
+describe "DELETE /api/v1/events/:id" do
+  it "deletes an existing event" do
+    event_to_delete = FactoryBot.create(
+      :event,
+      user: user,
+      category: category
+    )
+
+    token = JWT.encode(
+      {
+        user_id: user.id,
+        exp: 1.hour.from_now.to_i
+      },
+      Rails.application.secret_key_base
+    )
+
+    headers = {
+      "Authorization" => "Bearer #{token}"
+    }
+
+    expect do
+      delete "/api/v1/events/#{event_to_delete.id}",
+             headers: headers
+    end.to change(Event, :count).by(-1)
+
+    expect(response).to have_http_status(:no_content)
+  end
+end
+
 end
