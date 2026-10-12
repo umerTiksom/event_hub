@@ -53,3 +53,5 @@ group :development, :test do
   gem 'rspec-rails', '>= 8.0.4'
   gem 'factory_bot_rails', '>= 6.5.1'
 end
+
+gem "rack-attack", "~> 6.8"
