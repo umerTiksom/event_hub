@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e962f80-0bbf-474d-9d99-a0d705a8da2b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/config/initializers/rack_attack.rb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gemfile" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gemfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/initializers/cors.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/initializers/cors.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +163,8 @@
       <workItem from="1791524582633" duration="15243000" />
       <workItem from="1791717747727" duration="2989000" />
       <workItem from="1791739989706" duration="6093000" />
-      <workItem from="1791785219394" duration="2609000" />
+      <workItem from="1791785219394" duration="3202000" />
+      <workItem from="1792152753631" duration="1595000" />
     </task>
     <servers />
   </component>
