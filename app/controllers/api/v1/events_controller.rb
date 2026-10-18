@@ -1,10 +1,9 @@
-
 class Api::V1::EventsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_event, only: [:show, :update, :destroy]
 
   def index
-    # Scope events before applying search and filters
+    # Apply Pundit scope first
     events = policy_scope(Event).includes(:category)
 
     # Search by event name or description
@@ -18,7 +17,7 @@ class Api::V1::EventsController < ApplicationController
     end
 
     # Filter by category name
-    if params[:category].present?
+    if params[:category].present? && params[:category] != "All"
       events = events.joins(:category)
                      .where(categories: { name: params[:category] })
     end
@@ -33,11 +32,12 @@ class Api::V1::EventsController < ApplicationController
       )
     end
 
-    # Pagination using will_paginate
+    # Pagination
     page = params[:page].to_i
     page = 1 if page < 1
 
-    events = events.paginate(page: page, per_page: 10)
+    per_page = 10
+    events = events.paginate(page: page, per_page: per_page)
 
     render json: {
       status: "success",
@@ -72,7 +72,7 @@ class Api::V1::EventsController < ApplicationController
       render json: {
         status: "success",
         message: "Event created successfully",
-        data: event
+        data: event.as_json(include: :category)
       }, status: :created
     else
       render json: {
@@ -89,7 +89,7 @@ class Api::V1::EventsController < ApplicationController
       render json: {
         status: "success",
         message: "Event updated successfully",
-        data: @event
+        data: @event.as_json(include: :category)
       }, status: :ok
     else
       render json: {
@@ -99,13 +99,13 @@ class Api::V1::EventsController < ApplicationController
     end
   end
 
-def destroy
-  authorize @event, :destroy?
+  def destroy
+    authorize @event, :destroy?
 
-  @event.destroy!
+    @event.destroy!
 
-  head :no_content
-end
+    head :no_content
+  end
 
   private
 
@@ -124,7 +124,6 @@ end
       :description,
       :location,
       :category_id,
-      :user_id,
       :date
     )
   end
