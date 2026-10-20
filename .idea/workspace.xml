@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="0e962f80-0bbf-474d-9d99-a0d705a8da2b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/api/v1/events_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/api/v1/events_controller.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/api/v1/auth/auth_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/api/v1/auth/auth_controller.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/user.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/user.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,7 +166,9 @@
       <workItem from="1792152753631" duration="1893000" />
       <workItem from="1792181904460" duration="580000" />
       <workItem from="1792346897035" duration="856000" />
-      <workItem from="1792349165385" duration="2518000" />
+      <workItem from="1792349165385" duration="2929000" />
+      <workItem from="1792391888022" duration="2120000" />
+      <workItem from="1792492101927" duration="2371000" />
     </task>
     <servers />
   </component>
