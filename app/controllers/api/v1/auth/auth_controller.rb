@@ -1,13 +1,11 @@
+
 class Api::V1::Auth::AuthController < ApplicationController
   def register
     user = User.new(user_params)
 
     if user.save
-      token = generate_token(user)
-
       render json: {
         status: "success",
-        token: token,
         message: "User registered successfully!",
         data: {
           user: {
@@ -15,7 +13,7 @@ class Api::V1::Auth::AuthController < ApplicationController
             name: user.name,
             email: user.email,
             phone_number: user.phone_number,
-            role: user.role
+
           }
         }
       }, status: :created
