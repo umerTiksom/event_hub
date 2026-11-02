@@ -83,17 +83,19 @@ class Api::V1::EventsController < ApplicationController
   end
 
   def update
-    authorize @event, :update?
+    @event = Event.find(params[:id])
+    authorize @event
 
     if @event.update(event_params)
       render json: {
         status: "success",
-        message: "Event updated successfully",
-        data: @event.as_json(include: :category)
+        message: "Event updated successfully!",
+        data: @event
       }, status: :ok
     else
       render json: {
         status: "error",
+        message: "Event update failed",
         errors: @event.errors.full_messages
       }, status: :unprocessable_entity
     end
@@ -106,6 +108,7 @@ class Api::V1::EventsController < ApplicationController
 
     head :no_content
   end
+
 
   private
 

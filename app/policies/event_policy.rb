@@ -11,9 +11,8 @@ class EventPolicy < ApplicationPolicy
   end
 
   def create?
-    user.present? && %w[admin organizer].include?(user.role)
+    user.present?
   end
-
   def update?
     user.present? &&
       (user.role == "admin" || record.user_id == user.id)

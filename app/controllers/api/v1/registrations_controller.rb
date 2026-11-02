@@ -1,7 +1,7 @@
 
 class Api::V1::RegistrationsController < ApplicationController
   before_action :authenticate_user
-  before_action :set_event, only: [:create]
+  before_action :set_event, only: [:create, :event_members]
 
   def index
     registrations = @current_user.registrations
@@ -9,6 +9,31 @@ class Api::V1::RegistrationsController < ApplicationController
     render json: registrations, status: :ok
   end
 
+  def event_members
+    # Only the event creator can view registered members
+    unless @event.user_id == @current_user.id
+      return render json: {
+        status: "error",
+        message: "You are not authorized to view these members."
+      }, status: :forbidden
+    end
+
+    registrations = @event.registrations.includes(:user)
+
+    render json: {
+      status: "success",
+      total_members: registrations.count,
+      members: registrations.map do |registration|
+        {
+          registration_id: registration.id,
+          user_id: registration.user.id,
+          name: registration.user.name,
+          email: registration.user.email,
+          phone_number: registration.user.phone_number
+        }
+      end
+    }, status: :ok
+  end
 
   def create
     registration = Registration.new
@@ -36,7 +61,6 @@ class Api::V1::RegistrationsController < ApplicationController
       }, status: :unprocessable_entity
     end
   end
-
 
   def destroy
     registration = @current_user.registrations.find_by(id: params[:id])
@@ -111,9 +135,7 @@ class Api::V1::RegistrationsController < ApplicationController
     end
   end
 
-
   def registration_params
     params.require(:registration).permit
   end
-
 end
