@@ -13,7 +13,7 @@ Rails.application.routes.draw do
         end
 
         resources :events do
-          resources :registrations, only: [:create, :destroy]
+          resources :registrations, only: [ :create, :destroy]
         end
         resources :categories, only: [:index, :show]
         get "events/:event_id/registrations",
