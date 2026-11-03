@@ -1,21 +1,21 @@
-
-# frozen_string_literal: true
-
 class Api::V1::EventsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
   before_action :set_event, only: %i[show update destroy]
 
   def index
-    events = policy_scope(Event).includes(:category)
 
-    events = search_events(events)
-    events = filter_by_category(events)
-    events = filter_by_location(events)
-
-    page = [params[:page].to_i, 1].max
-    per_page = 3
-
-    events = events.paginate(page: page, per_page: per_page)
+    events = policy_scope(Event)
+    events = Event.filter_events(
+      events,
+      search: params[:search],
+      category: params[:category],
+      location: params[:location]
+    )
+    events = Event.paginate_events(
+      events,
+      page: params[:page],
+      per_page: 12
+    )
 
     render json: {
       status: "success",
@@ -105,31 +105,5 @@ class Api::V1::EventsController < ApplicationController
       :category_id,
       :date
     )
-  end
-
-  def search_events(events)
-    return events unless params[:search].present?
-
-    search_term = "%#{Event.sanitize_sql_like(params[:search])}%"
-
-    events.where(
-      "events.name ILIKE :term OR events.description ILIKE :term",
-      term: search_term
-    )
-  end
-
-  def filter_by_category(events)
-    return events unless params[:category].present? && params[:category] != "All"
-
-    events.joins(:category)
-          .where(categories: { name: params[:category] })
-  end
-
-  def filter_by_location(events)
-    return events unless params[:location].present?
-
-    location_term = "%#{Event.sanitize_sql_like(params[:location])}%"
-
-    events.where("events.location ILIKE ?", location_term)
   end
 end
