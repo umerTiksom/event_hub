@@ -13,7 +13,7 @@ class Api::V1::EventsController < ApplicationController
     events = filter_by_location(events)
 
     page = [params[:page].to_i, 1].max
-    per_page = 10
+    per_page = 3
 
     events = events.paginate(page: page, per_page: per_page)
 
