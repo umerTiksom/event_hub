@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_many :registrations
-  has_many :events
+  has_many :events, dependent: :destroy
+  has_many :registrations, dependent: :destroy
   has_secure_password
 
   validates :email, presence: true, uniqueness: true

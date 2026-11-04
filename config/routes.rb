@@ -8,18 +8,17 @@ Rails.application.routes.draw do
           post "/login", to: "auth#login"
           post "/register", to: "auth#register"
         end
-        resource :me, only: [:show], controller: "me" do
+
+        resource :me, only: [:show, :destroy], controller: "me" do
           resources :registrations, only: [:index]
         end
-
         resources :events do
-          resources :registrations, only: [ :create, :destroy]
+          resources :registrations, only: [:create, :destroy]
         end
         resources :categories, only: [:index, :show]
         get "events/:event_id/registrations",
             to: "registrations#event_members"
       end
-
     end
   end
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

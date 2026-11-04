@@ -4,7 +4,7 @@
 class Event < ApplicationRecord
    belongs_to :category
    belongs_to :user
-   has_many :registrations
+   has_many :registrations, dependent: :destroy
 
    # Search events by name or description
    def self.search_events(events, search)
