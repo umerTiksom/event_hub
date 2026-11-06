@@ -40,13 +40,16 @@ gem 'will_paginate', '>= 4.0.1'
 gem 'pundit', '>= 2.5.2'
 gem 'inertia_rails', '>= 3.23'
 gem "rack-cors"
+gem 'actionmailer', '>= 5.0.0.1'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
   gem "dotenv-rails"
   # Audits gems for known security defects (use config/bundler-audit.yml to ignore issues)
   gem "bundler-audit", require: false
-
+  group :development do
+    gem "letter_opener"
+  end
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
 

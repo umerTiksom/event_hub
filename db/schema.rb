@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_09_062133) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_06_080042) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -60,6 +60,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_09_062133) do
     t.string "email"
     t.string "password_digest"
     t.string "role"
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
   end
 
   add_foreign_key "jwt_tokens", "users"
