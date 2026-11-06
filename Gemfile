@@ -41,6 +41,7 @@ gem 'pundit', '>= 2.5.2'
 gem 'inertia_rails', '>= 3.23'
 gem "rack-cors"
 gem 'actionmailer', '>= 5.0.0.1'
+gem "redis"
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
