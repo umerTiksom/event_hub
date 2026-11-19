@@ -98,6 +98,7 @@ class Api::V1::RegistrationsController < ApplicationController
     end
   end
 
+
   def destroy
     registration = @current_user.registrations.find_by(id: params[:id])
 
@@ -110,8 +111,45 @@ class Api::V1::RegistrationsController < ApplicationController
 
     event = registration.event
 
+    # Delete the registration
     registration.destroy!
 
+    # Create cancellation notification for event creator
+    begin
+      notification = Notification.create!(
+        user: event.user,
+        actor: @current_user,
+        event: event,
+        action: "registration_cancelled"
+      )
+
+      # Broadcast real-time notification
+      ActionCable.server.broadcast(
+        "notifications_user_#{event.user_id}",
+        {
+          action: "new_notification",
+          notification: {
+            id: notification.id,
+            action: notification.action,
+            read_at: notification.read_at,
+            actor: {
+              id: @current_user.id,
+              name: @current_user.name
+            },
+            event: {
+              id: event.id,
+              title: event.try(:title) || event.try(:name)
+            }
+          }
+        }
+      )
+    rescue StandardError => e
+      Rails.logger.error(
+        "Cancellation notification error: #{e.class} - #{e.message}"
+      )
+    end
+
+    # Update total registrations
     total_registrations = event.registrations.count
 
     ActionCable.server.broadcast(
@@ -128,6 +166,7 @@ class Api::V1::RegistrationsController < ApplicationController
       message: "Registration cancelled successfully"
     }, status: :ok
   end
+
 
   private
 
