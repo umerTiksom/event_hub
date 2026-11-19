@@ -1,7 +1,15 @@
-
 class User < ApplicationRecord
   has_many :events, dependent: :destroy
   has_many :registrations, dependent: :destroy
+
+  # Notifications received by this user
+  has_many :notifications, dependent: :destroy
+
+  # Notifications triggered by this user
+  has_many :triggered_notifications,
+           class_name: "Notification",
+           foreign_key: :actor_id,
+           dependent: :destroy
 
   has_secure_password
 

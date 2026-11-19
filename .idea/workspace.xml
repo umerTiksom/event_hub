@@ -5,9 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e962f80-0bbf-474d-9d99-a0d705a8da2b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/channels/application_cable/channel.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/channels/application_cable/connection.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/channels/events_channel.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/channels/notifications_channel.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/controllers/api/v1/notifications_controller.rb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/api/v1/registration_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/api/v1/registration_controller.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/registration.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/registration.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/api/v1/demo.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/api/v1/demo.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/api/v1/events_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/api/v1/events_controller.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/api/v1/registrations_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/api/v1/registrations_controller.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/event.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/event.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/user.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/user.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/cable.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config/cable.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/schema.rb" beforeDir="false" afterPath="$PROJECT_DIR$/db/schema.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,6 +182,18 @@
       <workItem from="1792492101927" duration="2644000" />
       <workItem from="1792561912194" duration="1111000" />
       <workItem from="1792748315024" duration="4321000" />
+      <workItem from="1793340648553" duration="5783000" />
+      <workItem from="1793597815399" duration="19000" />
+      <workItem from="1793597861225" duration="30000" />
+      <workItem from="1793597909414" duration="8442000" />
+      <workItem from="1793686337401" duration="9317000" />
+      <workItem from="1793773040169" duration="3406000" />
+      <workItem from="1793946851785" duration="8756000" />
+      <workItem from="1794291166069" duration="5728000" />
+      <workItem from="1794378933779" duration="22000" />
+      <workItem from="1794382374885" duration="2416000" />
+      <workItem from="1794464392056" duration="14000" />
+      <workItem from="1795070411893" duration="7617000" />
     </task>
     <servers />
   </component>

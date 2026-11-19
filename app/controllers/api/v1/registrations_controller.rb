@@ -41,6 +41,42 @@ class Api::V1::RegistrationsController < ApplicationController
     registration.event = @event
 
     if registration.save
+      begin
+        # Create notification for event organizer
+        notification = Notification.create!(
+          user: @event.user,
+          actor: @current_user,
+          event: @event,
+          action: "registration"
+        )
+
+        # Broadcast notification
+        ActionCable.server.broadcast(
+          "notifications_user_#{@event.user_id}",
+          {
+            action: "new_notification",
+            notification: {
+              id: notification.id,
+              action: notification.action,
+              read_at: notification.read_at,
+              actor: {
+                id: @current_user.id,
+                name: @current_user.name
+              },
+              event: {
+                id: @event.id,
+                title: @event.try(:title) || @event.try(:name)
+              }
+            }
+          }
+        )
+      rescue StandardError => e
+        Rails.logger.error(
+          "Notification error: #{e.class} - #{e.message}"
+        )
+      end
+
+      # Registration success response
       render json: {
         status: "success",
         message: "You have successfully registered for this event!",
@@ -72,7 +108,20 @@ class Api::V1::RegistrationsController < ApplicationController
       }, status: :not_found
     end
 
+    event = registration.event
+
     registration.destroy!
+
+    total_registrations = event.registrations.count
+
+    ActionCable.server.broadcast(
+      "events",
+      {
+        action: "registration_count_updated",
+        event_id: event.id,
+        total_registrations: total_registrations
+      }
+    )
 
     render json: {
       status: "success",

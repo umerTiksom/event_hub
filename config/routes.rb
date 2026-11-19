@@ -19,11 +19,16 @@ Rails.application.routes.draw do
       end
 
       resources :categories, only: [:index, :show]
-
+      resources :notifications, only: [:index, :destroy] do
+        member do
+          patch :read
+        end
+      end
       get "events/:event_id/registrations",
           to: "registrations#event_members"
     end
   end
 
   get "up" => "rails/health#show", as: :rails_health_check
+  mount ActionCable.server => "/cable"
 end

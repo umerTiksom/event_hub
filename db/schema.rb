@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_06_080042) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_10_101027) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -43,6 +43,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_06_080042) do
     t.index ["user_id"], name: "index_jwt_tokens_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
+    t.bigint "actor_id", null: false
+    t.string "action", null: false
+    t.datetime "read_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["actor_id"], name: "index_notifications_on_actor_id"
+    t.index ["event_id"], name: "index_notifications_on_event_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "registrations", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "event_id", null: false
@@ -65,6 +78,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_06_080042) do
   end
 
   add_foreign_key "jwt_tokens", "users"
+  add_foreign_key "notifications", "events"
+  add_foreign_key "notifications", "users"
+  add_foreign_key "notifications", "users", column: "actor_id"
   add_foreign_key "registrations", "events"
   add_foreign_key "registrations", "users"
 end

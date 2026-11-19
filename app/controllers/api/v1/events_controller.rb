@@ -65,6 +65,13 @@ class Api::V1::EventsController < ApplicationController
     authorize event, :create?
 
     if event.save
+      ActionCable.server.broadcast(
+        "events",
+        {
+          action: "created",
+          event: event.as_json(include: :category)
+        }
+      )
       render json: {
         status: "success",
         message: "Event created successfully",
@@ -99,7 +106,18 @@ class Api::V1::EventsController < ApplicationController
   def destroy
     authorize @event, :destroy?
 
+    deleted_event = @event.as_json(include: :category)
+
     @event.destroy!
+
+    ActionCable.server.broadcast(
+      "events",
+      {
+        action: "deleted",
+        event: deleted_event,
+        event_id: deleted_event["id"]
+      }
+    )
 
     head :no_content
   end
